@@ -58,9 +58,8 @@
 					echo $validateInput['message'];
 				}
 				$arrResult = (processing($input));
-				$count = count($arrResult);
-				for($i = 0; $i < $count; $i++){
-					echo $arrResult[$i].'</br>';
+				foreach ($arrResult as $value){
+					echo $value.'<br/>';
 				}
 			}
 		}
