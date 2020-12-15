@@ -18,11 +18,11 @@
 		  		return 1;  
 		}
 		function validate($input){
-			$arr_input_1 = explode(',', $input);
-			$count = count($arr_input_1);
+			$arrInput1 = explode(',', $input);
+			$count = count($arrInput1);
 			for ($i=0; $i < $count; $i++) { 
-				$arr_input_2 = explode('-', $arr_input_1[$i]);
-				if(!is_numeric($arr_input_2[0]) || !is_numeric($arr_input_2[1])){
+				$arrInput2 = explode('-', $arrInput1[$i]);
+				if(!is_numeric($arrInput2[0]) || !is_numeric($arrInput2[1])){
 					return [
 					'message' => 'Nhập sai định dạng',
 					'code' => 0
@@ -35,32 +35,32 @@
 			}
 		}
 		function processing($input){
-			$arr_input_1 = explode(',', $input);
-			$count = count($arr_input_1);
+			$arrInput1 = explode(',', $input);
+			$count = count($arrInput1);
 			for ($i=0; $i < $count; $i++) { 
-				$arr_input_2 = explode('-', $arr_input_1[$i]);
-				$min = min($arr_input_2);
-				$max = max($arr_input_2);
-				$arr_result = [];
+				$arrInput2 = explode('-', $arrInput1[$i]);
+				$min = min($arrInput2);
+				$max = max($arrInput2);
+				$arrResult = [];
 				for($j = $min; $j <= $max; $j++){
 					if(check($j)){
-						array_push($arr_result, $j);
+						array_push($arrResult, $j);
 					}
 				}
 			}
-			return $arr_result;
+			return $arrResult;
 		}
 		function main(){
 			if(isset($_POST['submit'])){
 				$input = $_POST['input'];
-				$validate_input = validate($input);
-				if($validate_input['code'] === 0){
-					echo $validate_input['message'];
+				$validateInput = validate($input);
+				if($validateInput['code'] === 0){
+					echo $validateInput['message'];
 				}
-				$arr_result = (processing($input));
-				$count = count($arr_result);
+				$arrResult = (processing($input));
+				$count = count($arrResult);
 				for($i = 0; $i < $count; $i++){
-					echo $arr_result[$i].'</br>';
+					echo $arrResult[$i].'</br>';
 				}
 			}
 		}
