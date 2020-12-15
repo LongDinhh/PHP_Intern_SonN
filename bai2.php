@@ -19,7 +19,8 @@
 		}
 		function validate($a){
 			$arr1 = explode(',', $a);
-			for ($i=0; $i < count($arr1); $i++) { 
+			$c = count($arr1);
+			for ($i=0; $i < $c; $i++) { 
 				$arr2 = explode('-', $arr1[$i]);
 				if(!is_numeric($arr2[0]) || !is_numeric($arr2[1])){
 					return [
@@ -35,10 +36,11 @@
 		}
 		function display($a){
 			$arr1 = explode(',', $a);
-			for ($i=0; $i < count($arr1); $i++) { 
+			$c = count($arr1);
+			for ($i=0; $i < $c; $i++) { 
 				$arr2 = explode('-', $arr1[$i]);
-				$a1 = $arr2[0];
-				$a2 = $arr2[1];
+				$a1 = min($arr2);
+				$a2 = max($arr2);
 				if($a1 < $a2){
 					for($j = $a1; $j <= $a2; $j++){
 						if(check($j)){
@@ -46,14 +48,8 @@
 						}
 					}
 				}
-				for($j = $a2; $j <= $a1; $j++){
-					if(check($j)){
-						echo $j.'<br/>';
-					}
-				}
 			}
 		}
-		
 		function main(){
 			if(isset($_POST['submit'])){
 				$a = $_POST['input'];
