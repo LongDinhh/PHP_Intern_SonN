@@ -34,7 +34,7 @@
 				];
 			}
 		}
-		function display($a){
+		function processing($a){
 			$arr1 = explode(',', $a);
 			$c = count($arr1);
 			for ($i=0; $i < $c; $i++) { 
@@ -55,7 +55,7 @@
 				if($b['code'] === 0){
 					echo $b['message'];
 				}
-				display($a);
+				processing($a);
 			}
 		}
 		main();
