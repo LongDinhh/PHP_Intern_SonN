@@ -41,11 +41,9 @@
 				$arr2 = explode('-', $arr1[$i]);
 				$a1 = min($arr2);
 				$a2 = max($arr2);
-				if($a1 < $a2){
-					for($j = $a1; $j <= $a2; $j++){
-						if(check($j)){
-							echo $j.'<br/>';
-						}
+				for($j = $a1; $j <= $a2; $j++){
+					if(check($j)){
+						echo $j.'<br/>';
 					}
 				}
 			}
