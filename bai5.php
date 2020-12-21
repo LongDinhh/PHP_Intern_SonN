@@ -148,13 +148,14 @@
 		function sortId($products){
 			for ($i=0; $i < 9; $i++) { 
             	for ($j=$i + 1; $j < 10; $j++) { 
-            		if($productsStart[$i]['order'] === $productsStart[$i]['order'] && $productsStart[$i]['id'] > $productsStart[$j]['id']){
-            			$tmp = $productsStart[$j];
-                       	$productsEnd[$j] = $productsEnd[$i];
-                        $productsEnd[$i] = $tmp;
+            		if($products[$i]['order'] === $products[$i]['order'] && $products[$i]['id'] > $products[$j]['id']){
+            			$tmp = $products[$j];
+                       	$products[$j] = $products[$i];
+                        $products[$i] = $tmp;
             		}
             	}
             }
+            return $products;
 		}
 		function sortPriceAsc($products){
 			for ($i=0; $i < 9; $i++) { 
