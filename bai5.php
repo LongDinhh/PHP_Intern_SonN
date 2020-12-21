@@ -130,13 +130,9 @@
 					if($input[$i] > 0 && $input[$i] < $products[$i]['quantity']){
 						return 1;
 					}
-					else {
-						return 0;
-					}
+					else return 0;
 				}
-				else {
-					return 0;
-				}
+				else return 0;
 			}
 		}
 		function order($input, $products){
