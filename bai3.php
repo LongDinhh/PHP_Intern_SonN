@@ -15,11 +15,9 @@
 				if($input > 0 && $input < 27){
 					return 1;
 				}
-				else {
-					return 0;
-				}
+				else return 0;
 			}
-			return 0;
+			else return 0;
 		}
 		function createArray($input){
 			$arrMain = [];
@@ -28,9 +26,7 @@
 				if($randDataType === 0){
 					array_push($arrMain, randomInt($input));
 				}
-				else{
-					array_push($arrMain, randomString($input));
-				}
+				else array_push($arrMain, randomString($input));
 			}
 			return $arrMain;
 		}
@@ -60,9 +56,7 @@
 				if(is_numeric($arrMain[$i])){
 					array_push($arrInt, $arrMain[$i]);
 				}
-				else{
-					array_push($arrString, $arrMain[$i]);
-				}
+				else array_push($arrString, $arrMain[$i]);
 			}
 			$arrIntString = array($arrInt, $arrString);
 			return $arrIntString;

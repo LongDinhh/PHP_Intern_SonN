@@ -40,7 +40,7 @@
             echo $products[$i]['quantity'];
             echo '</td>';
             echo '<td>';
-            echo '<input type="text" name="order" value="'.$products[$i]['order'].'">';
+            echo '<input type="text" name="order[]" value="'.$products[$i]['order'].'">';
             echo '</td>';
             echo '<td>';
             echo $products[$i]['price']*$products[$i]['order'];
@@ -230,15 +230,13 @@
 		}
 		function main(){
             $products = products();
-            if(isset($_POST['saveOrder'])){
-            	for ($i=0; $i < 10; $i++) { 
-            		$input = $_POST['order'];
-            		if(validateOrder($input, $products) === 1){
-            			$productsOrder = order($input, $products);
-            			$productsStart = sortOrderAsc($productsOrder);
-            			$productsEnd = sortId($productsStart);
-            			return $productsEnd;
-            		}
+            if(isset($_POST['saveOrder'])){ 
+            	$input = $_POST['order'];
+            	if(validateOrder($input, $products) === 1){
+            		$productsOrder = order($input, $products);
+            		$productsStart = sortOrderAsc($productsOrder);
+            		$productsEnd = sortId($productsStart);
+            		return $productsEnd;
             	}
             }
             if(isset($_POST['original'])){
