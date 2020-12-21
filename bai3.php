@@ -12,7 +12,12 @@
 	<?php session_start();
 		function validate($input){
 			if(is_numeric($input)){
-				return 1;
+				if($input > 0 && $input < 27){
+					return 1;
+				}
+				else {
+					return 0;
+				}
 			}
 			return 0;
 		}
@@ -66,13 +71,12 @@
 			if(isset($_POST['create'])){
 				$input = $_POST['input'];
 				$validateInput = validate($input);
-				if($validateInput = 1){
+				if($validateInput === 1){
 					$input = (int)$input;
 					$arrMain = createArray($input);
 					echo "<pre>";
 					print_r($arrMain);
 					$_SESSION['arrMain'] = $arrMain;
-
 				}
 			}
 			if(isset($_POST['devide'])){
