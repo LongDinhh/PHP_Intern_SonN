@@ -6,7 +6,7 @@
 <body>
 	<form method="POST">
 		<input type="submit" name="original" value="Original">
-		<input type="submit" name="saverOrder" value="Saver Order"><br/>
+		<input type="submit" name="saveOrder" value="Save Order"><br/>
 		<input type="submit" name="sortPriceAsc" value="Sort Price Asc">
         <input type="submit" name="sortPriceDesc" value="Sort Price Desc"><br/>
         <input type="submit" name="sortOrderAsc" value="Sort Order Asc">
@@ -40,7 +40,7 @@
             echo $products[$i]['quantity'];
             echo '</td>';
             echo '<td>';
-            echo '<input type="text" name="order'.$i.'" value="'.$products[$i]['order'].'">';
+            echo '<input type="text" name="order" value="'.$products[$i]['order'].'">';
             echo '</td>';
             echo '<td>';
             echo $products[$i]['price']*$products[$i]['order'];
@@ -127,7 +127,7 @@
 		function validateOrder($input, $products){
 			for ($i=0; $i < 10; $i++) { 
 				if(is_numeric($input[$i])){
-					if($input[$i]['order'] > 0 && $input[$i]['order'] < $products[$i]['quantity']){
+					if($input[$i] > 0 && $input[$i] < $products[$i]['quantity']){
 						return 1;
 					}
 					else {
@@ -141,18 +141,21 @@
 		}
 		function order($input, $products){
 			for ($i=0; $i < 10; $i++) { 
-				$products[$i]['order'] = $input[$i];			}
-			}
-			for ($i=0; $i < 9; $i++) { 
-				for ($j=$i + 1; $j < 10; $j++) { 
-					if(($products[$i])['order'] > ($products[$j])['order']){
-						$tmp = $products[$j];
-						$products[$j] = $products[$i];
-						$products[$i] = $tmp;
-					}
-				}
+				$products[$i]['order'] = $input[$i];
 			}
 			return $products;
+		}
+		function sortId($products){
+			for ($i=0; $i < 9; $i++) { 
+            	for ($j=$i + 1; $j < 10; $j++) { 
+            		if($productsStart[$i]['order'] === $productsStart[$i]['order'] && $productsStart[$i]['id'] > $productsStart[$j]['id']){
+            			$tmp = $productsStart[$j];
+                       	$productsEnd[$j] = $productsEnd[$i];
+                        $productsEnd[$i] = $tmp;
+            		}
+            	}
+            }
+		}
 		function sortPriceAsc($products){
 			for ($i=0; $i < 9; $i++) { 
 				for ($j=$i + 1; $j < 10; $j++) { 
@@ -227,14 +230,15 @@
 		}
 		function main(){
             $products = products();
-            if(isset($_POST['saverOrder'])){
-            	$input = [];
+            if(isset($_POST['saveOrder'])){
             	for ($i=0; $i < 10; $i++) { 
-            		$input[$i] = $_POST['order'.$i];
-            	}
-            	if(validateOrder($input, $products) === 1){
-            		$productsEnd = order($input, $products);
-            		return $productsEnd;
+            		$input = $_POST['order'];
+            		if(validateOrder($input, $products) === 1){
+            			$productsOrder = order($input, $products);
+            			$productsStart = sortOrderAsc($productsOrder);
+            			$productsEnd = sortId($productsStart);
+            			return $productsEnd;
+            		}
             	}
             }
             if(isset($_POST['original'])){
