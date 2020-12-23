@@ -13,132 +13,33 @@
         <input type="submit" name="sortTotalMoneyAsc" value="Sort Total Money Asc">
 		<input type="submit" name="sortTotalMoneyDesc" value="Sort Total Money Desc"><br/>
 	</form>
-    <table border="1" cellpadding="0" cellspacing="0">
+	<table border="1" cellpadding="0" cellspacing="0">
         <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Price</td>
-            <td>Quantity</td>
-            <td>Order</td>
-            <td>Total Money</td>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Order</th>
+            <th>Total Money</th>
         </tr>
-    <?php
-        $products = main();
-        for($i = 0; $i < 10; $i++){
-            echo '<tr>';
-            echo '<td>';
-            echo $products[$i]['id'];
-            echo '</td>';
-            echo '<td>';
-            echo $products[$i]['name'];
-            echo '</td>';
-            echo '<td>';
-            echo $products[$i]['price'];
-            echo '</td>';
-            echo '<td>';
-            echo $products[$i]['quantity'];
-            echo '</td>';
-            echo '<td>';
-            echo $products[$i]['order'];
-            echo '</td>';
-            echo '<td>';
-            echo $products[$i]['price']*$products[$i]['order'];
-            echo '</td>';
-            echo '</tr>';
-        }
-    ?>
+        <?php
+        	$products = main();?>
+		<?php foreach ($products as $product): ?>
+        		<tr>
+        			<td><?php echo $product['id'] ?></td>
+        			<td><?php echo $product['name'] ?></td>
+        			<td><?php echo $product['price'] ?></td>
+        			<td><?php echo $product['quantity'] ?></td>
+        			<td><?php echo $product['order'] ?></td>
+        			<td><?php echo $product['price']*$product['order'] ?></td>
+        	 	</tr>
+        <?php endforeach ?>
     </table>
 	<?php
-		function products(){
-			$product1 = [
-				'id' => 1,
-				'name' => 'Cocacola',
-				'price' => 10000,
-				'quantity' => 1000,
-				'order' => 9
-			];
-			$product2 = [
-				'id' => 2,
-				'name' => 'Pessi',
-				'price' => 11000,
-				'quantity' => 500,
-				'order' => 7
-			];
-			$product3 = [
-				'id' => 3,
-				'name' => 'Sting',
-				'price' => 9000,
-				'quantity' => 720,
-				'order' => 8
-			];
-			$product4 = [
-				'id' => 4,
-				'name' => 'Sprite',
-				'price' => 10000,
-				'quantity' => 100,
-				'order' => 10
-			];
-			$product5 = [
-				'id' => 5,
-				'name' => 'Lavie',
-				'price' => 11000,
-				'quantity' => 440,
-				'order' => 4
-			];
-			$product6 = [
-				'id' => 6,
-				'name' => 'Aquarius',
-				'price' => 12000,
-				'quantity' => 150,
-				'order' => 9
-			];
-			$product7 = [
-				'id' => 7,
-				'name' => 'Number1',
-				'price' => 10000,
-				'quantity' => 300,
-				'order' => 3
-			];
-			$product8 = [
-				'id' => 8,
-				'name' => 'Red Bull',
-				'price' => 15000,
-				'quantity' => 600,
-				'order' => 4
-			];
-			$product9 = [
-				'id' => 9,
-				'name' => '7 Up',
-				'price' => 10000,
-				'quantity' => 500,
-				'order' => 5
-			];
-			$product10 = [
-				'id' => 10,
-				'name' => 'Fanta',
-				'price' => 8000,
-				'quantity' => 400,
-				'order' => 6
-			];
-			$products = array($product1, $product2, $product3, $product4, $product5, $product6, $product7, $product8, $product9, $product10);
-			return $products;
-		}
-		function sortPriceAsc($products){
-			for ($i=0; $i < 9; $i++) { 
-				for ($j=$i + 1; $j < 10; $j++) { 
-					if(($products[$i])['price'] > ($products[$j])['price']){
-						$tmp = $products[$j];
-						$products[$j] = $products[$i];
-						$products[$i] = $tmp;
-					}
-				}
-			}
-			return $products;
-		}
-		function sortPriceDesc($products){
-			for ($i=0; $i < 9; $i++) { 
-                for ($j=$i + 1; $j < 10; $j++) { 
-                    if(($products[$i])['price'] < ($products[$j])['price']){
+		function sortAsc($products, $count, $column){
+			for ($i = 0; $i < $count - 1; $i++) { 
+                for ($j = $i + 1; $j < $count; $j++) {
+                    if($products[$i][$column] > $products[$j][$column]){
                         $tmp = $products[$j];
                         $products[$j] = $products[$i];
                         $products[$i] = $tmp;
@@ -147,46 +48,10 @@
             }
             return $products;
 		}
-		function sortOrderAsc($products){
-			for($i = 0; $i < 9; $i++){
-				for($j = $i + 1; $j < 10; $j++){
-					if(($products[$i])['order'] > ($products[$j])['order']){
-						$tmp = $products[$j];
-						$products[$j] = $products[$i];
-						$products[$i] = $tmp;
-					}
-				}
-			}
-			return $products;
-		}
-		function sortOrderDesc($products){
-			for($i = 0; $i < 9; $i++){
-                for($j = $i + 1; $j < 10; $j++){
-                    if(($products[$i])['order'] < ($products[$j])['order']){
-                        $tmp = $products[$j];
-                        $products[$j] = $products[$i];
-                        $products[$i] = $tmp;
-                    }
-                }
-            }
-            return $products;
-		}
-		function sortTotalMoneyAsc($products){
-			for($i = 0; $i < 9; $i++){
-				for($j = $i + 1; $j < 10; $j++){
-					if(($products[$i])['price']*($products[$i])['order'] > ($products[$j])['price']*($products[$j])['order']){
-						$tmp = $products[$j];
-						$products[$j] = $products[$i];
-						$products[$i] = $tmp;
-					}
-				}
-			}
-			return $products;
-		}
-		function sortTotalMoneyDesc($products){
-			for($i = 0; $i < 9; $i++){
-                for($j = $i + 1; $j < 10; $j++){
-                    if(($products[$i])['price']*($products[$i])['order'] < ($products[$j])['price']*($products[$j])['order']){
+		function sortDesc($products, $count, $column){
+			for ($i = 0; $i < $count - 1; $i++) { 
+                for ($j = $i + 1; $j < $count; $j++) {
+                    if($products[$i][$column] < $products[$j][$column]){
                         $tmp = $products[$j];
                         $products[$j] = $products[$i];
                         $products[$i] = $tmp;
@@ -196,37 +61,102 @@
             return $products;
 		}
 		function main(){
-            $products = products();
-            if(isset($_POST['original'])){
-                $productsEnd = products();
-                return $productsEnd;
+			$products = [
+			   [
+				'id' => 1,
+				'name' => 'Cocacola',
+				'price' => 10000,
+				'quantity' => 1000,
+				'order' => 9
+			], [
+				'id' => 2,
+				'name' => 'Pessi',
+				'price' => 11000,
+				'quantity' => 500,
+				'order' => 7
+			], [
+				'id' => 3,
+				'name' => 'Sting',
+				'price' => 9000,
+				'quantity' => 720,
+				'order' => 8
+			], [
+				'id' => 4,
+				'name' => 'Sprite',
+				'price' => 10000,
+				'quantity' => 100,
+				'order' => 10
+			], [
+				'id' => 5,
+				'name' => 'Lavie',
+				'price' => 11000,
+				'quantity' => 440,
+				'order' => 4
+			], [
+				'id' => 6,
+				'name' => 'Aquarius',
+				'price' => 12000,
+				'quantity' => 150,
+				'order' => 9
+			], [
+				'id' => 7,
+				'name' => 'Number1',
+				'price' => 10000,
+				'quantity' => 300,
+				'order' => 3
+			], [
+				'id' => 8,
+				'name' => 'Red Bull',
+				'price' => 15000,
+				'quantity' => 600,
+				'order' => 4
+			], [
+				'id' => 9,
+				'name' => '7 Up',
+				'price' => 10000,
+				'quantity' => 500,
+				'order' => 5
+			], [
+				'id' => 10,
+				'name' => 'Fanta',
+				'price' => 8000,
+				'quantity' => 400,
+				'order' => 6
+			]
+			];
+			$count = count($products);
+			if (isset($_POST['original'])) {
+				return $products;	
 			}
-			if(isset($_POST['sortPriceAsc'])){
-                $productsEnd = sortPriceAsc($products);
-                return $productsEnd;
-			}
-            if(isset($_POST['sortPriceDesc'])){
-                $productsEnd = sortPriceDesc($products);
-                return $productsEnd;
+			if (isset($_POST['sortPriceAsc'])) {
+            	$sortPriceAsc = sortAsc($products, $count, 'price');
+            	return $sortPriceAsc;
             }
-            if(isset($_POST['sortOrderAsc'])){
-                $productsEnd = sortOrderAsc($products);
-                return $productsEnd;
+            if (isset($_POST['sortPriceDesc'])) {
+            	$sortPriceDesc = sortDesc($products, $count, 'price');
+            	return $sortPriceDesc;
             }
-            if(isset($_POST['sortOrderDesc'])){
-                $productsEnd = sortOrderDesc($products);
-                return $productsEnd;
+            if (isset($_POST['sortOrderAsc'])) {
+            	$sortOrderAsc = sortAsc($products, $count, 'order');
+            	return $sortOrderAsc;
             }
-            if(isset($_POST['sortTotalMoneyAsc'])){
-                $productsEnd = sortTotalMoneyAsc($products);
-                return $productsEnd;
+            if (isset($_POST['sortOrderDesc'])) {
+            	$sortOrderDesc = sortDesc($products, $count, 'order');
+            	return $sortOrderDesc;
             }
-            if(isset($_POST['sortTotalMoneyDesc'])){
-                $productsEnd = sortTotalMoneyDesc($products);
-                return $productsEnd;
+            for ($i=0; $i < $count; $i++) { 
+            	$products[$i]['totalMoney'] = $products[$i]['price']*$products[$i]['order'];
+            }
+            if (isset($_POST['sortTotalMoneyAsc'])) {
+            	$sortTotalMoneyAsc = sortAsc($products, $count, 'totalMoney');
+            	return $sortTotalMoneyAsc;
+            }
+            if (isset($_POST['sortTotalMoneyDesc'])) {
+            	$sortTotalMoneyDesc = sortDesc($products, $count, 'totalMoney');
+            	return $sortTotalMoneyDesc;
             }
 		}
+		
 	?>
-</body>
 </body>
 </html>
