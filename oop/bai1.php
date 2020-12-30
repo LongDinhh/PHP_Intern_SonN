@@ -86,33 +86,32 @@
 			}
 			public function workdays($member, $listWorkTime){
 				$count = count($listWorkTime);
-				for ($i=0; $i < $count; $i++) { 
-					if($member['code'] === $listWorkTime[$i]['member_code']){
-						if ($member['has_lunch_break'] === 0 && strtotime(date('h:i:s', strtotime($listWorkTime[$i]['start_datetime']))) <= strtotime($member['start_work_time']) && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 >= $member['work_hour']) {
+				foreach ($listWorkTime as $value) { 
+					if($member['code'] !== $value['member_code']) continue;
+						if ($member['has_lunch_break'] === 0 && strtotime(date('h:i:s', strtotime($value['start_datetime']))) <= strtotime($member['start_work_time']) && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 >= $member['work_hour']) {
 							$member['workdays'] += 1;
 						}
-						if ($member['has_lunch_break'] === 0 && strtotime(date('h:i:s', strtotime($listWorkTime[$i]['start_datetime']))) <= strtotime($member['start_work_time']) && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 > $member['work_hour']/2 && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 < $member['work_hour']) {
+						if ($member['has_lunch_break'] === 0 && strtotime(date('h:i:s', strtotime($value['start_datetime']))) <= strtotime($member['start_work_time']) && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 > $member['work_hour']/2 && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 < $member['work_hour']) {
 							$member['workdays'] += 0.5;
 						}
-						if ($member['has_lunch_break'] === 0 && strtotime(date('h:i:s', strtotime($listWorkTime[$i]['start_datetime']))) > strtotime($member['start_work_time']) && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 >= $member['work_hour']) {
+						if ($member['has_lunch_break'] === 0 && strtotime(date('h:i:s', strtotime($value['start_datetime']))) > strtotime($member['start_work_time']) && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 >= $member['work_hour']) {
 							$member['workdays'] += 0.5;
 						}
-						if ($member['has_lunch_break'] === 0 && strtotime(date('h:i:s', strtotime($listWorkTime[$i]['start_datetime']))) > strtotime($member['start_work_time']) && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 > $member['work_hour']/2 && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 < $member['work_hour']) {
+						if ($member['has_lunch_break'] === 0 && strtotime(date('h:i:s', strtotime($value['start_datetime']))) > strtotime($member['start_work_time']) && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 > $member['work_hour']/2 && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 < $member['work_hour']) {
 							$member['workdays'] += 0.5;
 						}
-						if ($member['has_lunch_break'] === 1 && strtotime(date('h:i:s', strtotime($listWorkTime[$i]['start_datetime']))) <= strtotime($member['start_work_time']) && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 >= $member['work_hour'] + 1.5) {
+						if ($member['has_lunch_break'] === 1 && strtotime(date('h:i:s', strtotime($value['start_datetime']))) <= strtotime($member['start_work_time']) && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 >= $member['work_hour'] + 1.5) {
 							$member['workdays'] += 1;
 						}
-						if ($member['has_lunch_break'] === 1 && strtotime(date('h:i:s', strtotime($listWorkTime[$i]['start_datetime']))) <= strtotime($member['start_work_time']) && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 > ($member['work_hour']/2) + 1.5 && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 < $member['work_hour'] + 1.5) {
+						if ($member['has_lunch_break'] === 1 && strtotime(date('h:i:s', strtotime($value['start_datetime']))) <= strtotime($member['start_work_time']) && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 > ($member['work_hour']/2) + 1.5 && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 < $member['work_hour'] + 1.5) {
 							$member['workdays'] += 0.5;
 						}
-						if ($member['has_lunch_break'] === 1 && strtotime(date('h:i:s', strtotime($listWorkTime[$i]['start_datetime']))) > strtotime($member['start_work_time']) && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 >= $member['work_hour'] + 1.5) {
+						if ($member['has_lunch_break'] === 1 && strtotime(date('h:i:s', strtotime($value['start_datetime']))) > strtotime($member['start_work_time']) && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 >= $member['work_hour'] + 1.5) {
 							$member['workdays'] += 0.5;
 						}
-						if ($member['has_lunch_break'] === 1 && strtotime(date('h:i:s', strtotime($listWorkTime[$i]['start_datetime']))) > strtotime($member['start_work_time']) && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 > ($member['work_hour']/2) + 1.5 && (strtotime($listWorkTime[$i]['end_datetime']) - strtotime($listWorkTime[$i]['start_datetime']))/3600 < $member['work_hour'] + 1.5) {
+						if ($member['has_lunch_break'] === 1 && strtotime(date('h:i:s', strtotime($value['start_datetime']))) > strtotime($member['start_work_time']) && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 > ($member['work_hour']/2) + 1.5 && (strtotime($value['end_datetime']) - strtotime($value['start_datetime']))/3600 < $member['work_hour'] + 1.5) {
 							$member['workdays'] += 0.5;
 						}
-					}
 				}
 				return $member['workdays'];
 			}
@@ -150,10 +149,8 @@
 		foreach ($listMemberPartTime as $member) {
 		 	$managerMP[] = new Member($member['code'], $member['full_name'], $member['age'], $member['gender'], $member['marital_status'], $member['salary'], $member['start_work_time'], $member['work_hour'], $member['has_lunch_break']);
 		}
-		$y = (int)substr($listWorkTime[0]['start_datetime'], 0, 4);
-		$m = (int)substr($listWorkTime[0]['start_datetime'], 5, 2);
 		$calculate = new Calculate();
-		$workdaysOfMonth = $calculate->workdaysOfMonth($m, $y);
+		$workdaysOfMonth = $calculate->workdaysOfMonth(4, 2019);
 		$count1 = count($managerMF);
 		for ($i = 0; $i < $count1; $i++) {
 			$managerMF[$i]->setTotalWorkTime($calculate->totalWorkTime($listMemberFullTime[$i], $listWorkTime));
@@ -165,7 +162,7 @@
 			$managerMP[$i]->setWorkdays($calculate->workdays($listMemberPartTime[$i], $listWorkTime));
 		}
 		if (isset($_POST['member'])) {
-			foreach ($managerMF as $key => $value) {
+			foreach ($managerMF as $value) {
 				echo 'Id: '.$value->getCode().'<br/>';
 				echo 'Name: '.$value->getName().'<br/>';
 				echo 'Age: '.$value->getAge().'<br/>';
@@ -190,7 +187,7 @@
 				echo 'Worrking mode: Fulltime'.'<br/>';
 				echo '<br/>';
 			}
-			foreach ($managerMP as $key => $value) {
+			foreach ($managerMP as $value) {
 				echo 'Id: '.$value->getCode().'<br/>';
 				echo 'Name: '.$value->getName().'<br/>';
 				echo 'Age: '.$value->getAge().'<br/>';
@@ -218,7 +215,7 @@
 		}
 		if (isset($_POST['findMember'])) {
 			$input = $_POST['input'];
-			foreach (array_merge($managerMF, $managerMP) as $key => $value) {
+			foreach (array_merge($managerMF, $managerMP) as $value) {
 				if ($value->getCode() == $input || $value->getName() == $input) {
 					echo 'Id: '.$value->getCode().'<br/>';
 					echo 'Name: '.$value->getName().'<br/>';
