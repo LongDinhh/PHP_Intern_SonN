@@ -94,13 +94,15 @@ class Bill{
     public $checkOut;
     public $moneyForMenu;
     public $moneyForStaff;
+    public $moneyDown;
     public $totalMoney;
-    public function __construct($id, $idTable, $checkIn, $checkOut)
+    public function __construct($id, $idTable, $checkIn, $checkOut, $moneyDown)
     {
         $this->id = $id;
         $this->idTable = $idTable;
         $this->checkIn = $checkIn;
         $this->checkOut = $checkOut;
+        $this->moneyDown = $moneyDown;
     }
     public function getId(){
         return $this->id;
@@ -133,6 +135,10 @@ class Bill{
     public function setTotalMoney($totalMoney)
     {
         $this->totalMoney = $totalMoney;
+    }
+    public function getMoneyDown()
+    {
+        return $this->moneyDown;
     }
     public function getTotalMoney()
     {
@@ -326,7 +332,6 @@ class Calculate{
     }
 }
 $calculate = new Calculate();
-$moneyDow = 10000;
 $menu = [];
 foreach ($listMenu as $value)
 {
@@ -346,14 +351,14 @@ if (isset($_POST['menu']))
 $bill = [];
 foreach ($listBill as $value)
 {
-    $bill[] = new Bill($value['id'], $value['id_table'], $value['check_in'], $value['check_out']);
+    $bill[] = new Bill($value['id'], $value['id_table'], $value['check_in'], $value['check_out'], $value['money_down']);
 }
 $countBill = count($listBill);
 for ($i=0; $i<$countBill; $i++)
 {
     $listBill[$i]['money_for_menu'] = $calculate->moneyForMenu($listOrder, $listMenu, $listBill[$i]);
     $listBill[$i]['money_for_staff'] = $calculate->moneyForStaff($listCallStaff, $listBill[$i]);
-    $listBill[$i]['total_money'] = ($listBill[$i]['money_for_menu'] + $listBill[$i]['money_for_staff'])*0.9 -$moneyDow;
+    $listBill[$i]['total_money'] = ($listBill[$i]['money_for_menu'] + $listBill[$i]['money_for_staff'])*1.1 - $listBill[$i]['money_down'];
     $bill[$i]->setMoneyForMenu($listBill[$i]['money_for_menu']);
     $bill[$i]->setMoneyForStaff($listBill[$i]['money_for_staff']);
     $bill[$i]->setTotalMoney($listBill[$i]['total_money']);
@@ -398,6 +403,7 @@ if (isset($_POST['bill']))
         }
         echo '<br/>';
         echo 'Money for staff: '.$value->getMoneyForStaff().'<br/>';
+        echo 'Money down: '.$value->getMoneyDown().'<br/>';
         echo 'Total money: '.$value->getTotalMoney().' (10% VAT)'.'<br/>';
         echo '<br/>';
     }
