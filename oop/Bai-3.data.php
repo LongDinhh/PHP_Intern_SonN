@@ -88,7 +88,7 @@ $listStaff = array(
     ),
     array(
         'id' => '05',
-        'name' => 'Le Văn E',
+        'name' => 'Le Van E',
         'type' => 0,
         'salary' => 0
     ),
@@ -129,6 +129,7 @@ $listBill = array(
         'check_out' => '12:00:00',
         'money_for_menu' => 0,
         'money_for_staff' => 0,
+        'money_down' => 10000,
         'total_money' => 0
     ),
     array(
@@ -138,6 +139,7 @@ $listBill = array(
         'check_out' => '12:00:00',
         'money_for_menu' => 0,
         'money_for_staff' => 0,
+        'money_down' => 9000,
         'total_money' => 0
     ),
     array(
@@ -147,6 +149,7 @@ $listBill = array(
         'check_out' => '14:00:00',
         'money_for_menu' => 0,
         'money_for_staff' => 0,
+        'money_down' => 8000,
         'total_money' => 0
     ),
     array(
@@ -156,6 +159,7 @@ $listBill = array(
         'check_out' => '13:00:00',
         'money_for_menu' => 0,
         'money_for_staff' => 0,
+        'money_down' => 7000,
         'total_money' => 0
     )
 );
